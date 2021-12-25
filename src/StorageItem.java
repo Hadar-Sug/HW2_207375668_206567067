@@ -1,18 +1,19 @@
 import java.sql.Timestamp;
+import java.util.Comparator;
 import java.util.Date;
 
-public class StorageItem {
+public abstract class StorageItem{
     private String name;
     private final Date dateCreated;
-    private int size;
 
-    public StorageItem(String name, int size) {
+    public StorageItem(String name) {
         this.name = name;
         this.dateCreated = generateDate();
-        this.size = size;
     }
 
-    public String getName() {
+    public abstract int getSize();
+
+    public String getName(){
         return name;
     }
 
@@ -24,14 +25,6 @@ public class StorageItem {
         return dateCreated;
     }
 
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
     private Date generateDate(){
         long offset = Timestamp.valueOf("2017-01-01 00:00:00").getTime(); //start
         long end = Timestamp.valueOf("2022-12-31 00:00:00").getTime(); // end
@@ -39,4 +32,9 @@ public class StorageItem {
         Timestamp rand = new Timestamp(offset + Main.rnd.nextLong()%diff); // second part of equation ensures were in bounds
         return new Date(rand.getTime());
     }
+
+    public void printTree(SortingField sortBy){
+        //TDL
+    }
+
 }
