@@ -73,8 +73,9 @@ public class Clock {
         if (this == obj) return true; // if they're the same object were done
         if (!(obj instanceof Clock)) return false; // if the object isn't a clock, we're done
         Clock clock = (Clock) obj; // it's a clock! hooray!
-        if(clock.hashCode()*this.hashCode()<0) return false; //if this multiplication is lower than 0 -> diff objects
-        return hours == clock.hours && minutes == clock.minutes; // let's compare
+        return this.hashCode()==clock.hashCode();
+        /*if(clock.hashCode()*this.hashCode()<0) return false; //if this multiplication is lower than 0 -> diff objects
+        return hours == clock.hours && minutes == clock.minutes; // let's compare*/
     }
 
     /**

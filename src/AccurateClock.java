@@ -48,7 +48,7 @@ public class AccurateClock extends Clock {
         if (this == obj) return true; // if they point to the same object were done
         if (!(obj instanceof AccurateClock)) return false; //by now we know its a similar clock, is it an AccurateClock
         AccurateClock accurateClock = (AccurateClock) obj; // it is an AccurateClock
-        return super.equals(obj) && seconds == accurateClock.seconds; // compare seconds
+        return this.hashCode()==accurateClock.hashCode(); // compare seconds
     }
 
     /**
