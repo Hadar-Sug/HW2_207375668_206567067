@@ -5,6 +5,10 @@ public enum SortingField {
 
     private final int val;
 
+    /**
+     * constructor
+     * @param val value for each enum
+     */
     SortingField(int val) {
         this.val = val;
     }
