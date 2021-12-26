@@ -11,7 +11,7 @@ public class File extends StorageItem{
     public File(String name, String type) {
         super(name);
         this.fileType = type;
-        this.contents = null;
+        this.contents = new String("");
     }
 
     /**

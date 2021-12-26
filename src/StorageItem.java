@@ -6,7 +6,7 @@ import java.util.Date;
 public abstract class StorageItem{
     private String name;
     private final Date dateCreated;
-    protected static ArrayList<StorageItem> manager; // list of all Storage Items
+    protected static ArrayList<StorageItem> manager = new ArrayList<StorageItem>(); // list of all Storage Items
 
     @SuppressWarnings("uncecked")
     private static Comparator<StorageItem>[] sorting = new Comparator[3]; //lets hold our comparators in an array
@@ -48,9 +48,7 @@ public abstract class StorageItem{
      * date created getter
      * @return date created
      */
-    public Date getCreationDate() {
-        return dateCreated;
-    }
+    public Date getCreationDate() { return dateCreated; }
 
     /**
      *
@@ -71,7 +69,7 @@ public abstract class StorageItem{
      */
     private Date generateDate(){
         long offset = Timestamp.valueOf("2017-01-01 00:00:00").getTime(); //start (US style date?)
-        long end = Timestamp.valueOf("2022-12-31 00:00:00").getTime(); // end
+        long end = Timestamp.valueOf("2022-12-31 23:59:59").getTime(); // end
         long diff = end - offset; // difference
         Timestamp rand = new Timestamp(offset + Main.rnd.nextLong()%diff); // second part of equation ensures were in bounds
         return new Date(rand.getTime());

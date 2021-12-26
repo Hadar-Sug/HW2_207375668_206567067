@@ -38,7 +38,16 @@ public class Folder extends StorageItem {
      * getter for folder size, which is the sum of its contents
      * @return size
      */
-    public int getSize(){ return size; }
+    public int getSize(){
+        int size=1; //The folder itself
+        for (StorageItem i:contents) { //Everything it contains
+            if(i instanceof Folder)
+                return i.getSize();
+            else
+                size+=i.getSize();
+        }
+        return size;
+    }
 
     /**
      * adds an item if it the name of said item doesn't already exist
@@ -50,8 +59,8 @@ public class Folder extends StorageItem {
             if (item.getName().equals(i.getName()))
                 return false;
         }
-        size += item.getSize();
         contents.add(item);
+        size += item.getSize();
         return true;
     }
 
