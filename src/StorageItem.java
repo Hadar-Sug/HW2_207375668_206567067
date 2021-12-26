@@ -6,7 +6,7 @@ import java.util.Date;
 public abstract class StorageItem{
     private String name;
     private final Date dateCreated;
-    private static ArrayList<StorageItem> manager; // list of all Storage Items
+    protected static ArrayList<StorageItem> manager; // list of all Storage Items
 
     @SuppressWarnings("uncecked")
     private static Comparator<StorageItem>[] sorting = new Comparator[3]; //lets hold our comparators in an array
@@ -50,6 +50,19 @@ public abstract class StorageItem{
      */
     public Date getDateCreated() {
         return dateCreated;
+    }
+
+    /**
+     *
+     * @param itemName name of the storageItem we want to search for
+     * @return its index in manager if it exists, and -1 otherwise
+     */
+    public int isInManager(String itemName) {
+        for (int i = 0; i < manager.size(); i++) {
+            if (itemName.equals(manager.get(i).getName()))
+                return i;
+        }
+        return -1;
     }
 
     /**

@@ -11,6 +11,7 @@ public class Folder extends StorageItem {
     public Folder(String name) {
         super(name);
         this.contents = new ArrayList<>();
+        size = 0;
     }
 
     /**
@@ -22,15 +23,22 @@ public class Folder extends StorageItem {
     }
 
     /**
+     *
+     * @return itemName name of said storageItem
+     */
+    private int searchContent(String itemName) {
+        for (int i = 0; i < contents.size(); i++) {
+            if (itemName.equals(contents.get(i).getName()))
+                return i;
+        }
+        return -1;
+    }
+
+    /**
      * getter for folder size, which is the sum of its contents
      * @return size
      */
-    public int getSize(){
-        for (StorageItem item: contents) {
-            size+= item.getSize();
-        }
-        return size;
-    }
+    public int getSize(){ return size; }
 
     /**
      * adds an item if it the name of said item doesn't already exist
@@ -42,6 +50,7 @@ public class Folder extends StorageItem {
             if (item.getName().equals(i.getName()))
                 return false;
         }
+        size += item.getSize();
         contents.add(item);
         return true;
     }
@@ -51,9 +60,62 @@ public class Folder extends StorageItem {
      * @param path
      * @return
      */
-    public File findFile(String path){ // on the TDL
+    public File findFile(String path) { // on the TDL
+        String[] allFiles = path.split("/");
+        boolean exist = true;
+        int index;
+        StorageItem currItem = null;
+        for (int i = 0; i < allFiles.length; i++) {
+            if (!exist)
+                return null;
+            if(allFiles[i] == null)
+                return null;
+            else { //We want to check if the file exists
 
-        return new File("nothing" ,"nothing"); //for now
+                if (i == 0) { // manager is not a folder, always need to check this first
+                    index = super.isInManager(allFiles[0]);
+                    if (index == -1) //no match found
+                        exist = false;
+                    else {
+                        ArrayList<StorageItem> managerItem = manager;
+                        if (managerItem.get(i) instanceof File) {
+                            return (File) managerItem.get(i);
+                        }
+                        else if (managerItem.get(i) instanceof Folder) {
+                            currItem = (Folder) managerItem.get(i);
+                        }
+                        else {
+                            // it's a shortcut, so we'll determine the item
+                            ShortCut sc1 = (ShortCut) managerItem.get(i);
+                            currItem = sc1.getItem();
+                            if (currItem instanceof File)
+                                return (File) currItem;
+                        }
+                    }
+                }
+                else { //we're in folders, no need to look another scenario
+                    Folder currItemFolder = (Folder) currItem;
+                    index = currItemFolder.searchContent(allFiles[i]); //searching if the item exists in the currentfolder
+                    if (index == -1) //file doesn't exist
+                        exist = false;
+                    else { //we have found the item, need to determine if file or folder
+                        ArrayList<StorageItem> contentItem = currItemFolder.contents;
+                        if (contentItem.get(i) instanceof File)  {return (File) contentItem.get(i);}
+                        else if (contentItem.get(i) instanceof Folder) {currItem = (Folder) contentItem.get(i);}
 
+                        else { //it's a shortcut
+                            ShortCut sc1 = (ShortCut) contentItem.get(i);
+                            currItem = sc1.getItem();
+                            if (currItem instanceof File) {
+                                return (File) currItem;
+                            } else if (currItem instanceof Folder) {
+                                currItem = (Folder) currItem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null; //forever
     }
 }

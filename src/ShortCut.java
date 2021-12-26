@@ -5,7 +5,7 @@ public class ShortCut extends StorageItem{
         this.wantedItem = wantedFile;
     }
 
-    public StorageItem getWantedItem() {
+    private StorageItem getWantedItem() {
         return wantedItem;
     }
 
@@ -19,7 +19,7 @@ public class ShortCut extends StorageItem{
         return 1;
     }
 
-    StorageItem getItem(){
+    public StorageItem getItem(){
         return getWantedItem();
     }
 }

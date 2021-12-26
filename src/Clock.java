@@ -91,7 +91,7 @@ public class Clock {
      * @return true if valid, false if not
      */
     private boolean validHour(int hour){
-        return  !(hour>23 || hour < 0 );
+        return  !(hour > 23 || hour < 0 );
     } // gotta check edge cases, rounding etc 23 or 24?
 
     /**
