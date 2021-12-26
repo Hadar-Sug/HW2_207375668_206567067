@@ -56,7 +56,7 @@ public class AccurateClock extends Clock {
      */
     @Override
     public int hashCode() {
-        return (60*super.getHours() + super.getMinutes() + 60*seconds);
+        return -(10000*super.getHours() + 100*super.getMinutes() + (seconds+1));//lower than zero
     }
 
     /**
