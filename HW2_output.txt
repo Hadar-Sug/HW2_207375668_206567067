@@ -1,0 +1,133 @@
+---------- Tests for part A ----------
+c1 with o1: true
+o1 with c1: true
+c1 with ac1: false
+ac1 with c1: false
+c1 with c2: false
+c2 with c1: false
+c1 with o2: false
+o2 with c1: false
+o1 with ac1: false
+ac1 with o1: false
+o1 with c2: false
+c2 with o1: false
+o1 with o2: false
+o2 with o1: false
+ac1 with c2: true
+c2 with ac1: true
+ac1 with o2: true
+o2 with ac1: true
+c2 with o2: true
+o2 with c2: true
+c1 with null: false
+o1 with null: false
+ac1 with null: false
+c1: 10:30
+o1: 10:30
+ac1: 10:30:20
+c2: 10:30:20
+o2: 10:30:20
+new: 05:06:03
+c1 with c3: true
+c1 hash c3: true
+c4 with ac2: false
+ac2 with c4: false
+c4 with ac1: true
+o1 with c4: true
+c4 hash o2: true
+o3 with c5: true
+o4 with ac3: true
+
+---------- Tests for part B ----------
+sc3 getItem(): true
+sc1 getItem(): true
+fo1 size: 78
+fo1 size: 78
+fo1 creation date: 2018-12-18 09:15:52.833
+fo2 creation date: 2022-09-21 10:40:55.995
+fi1 creation date: 2020-08-24 09:56:10.736
+fi2 creation date: 2022-10-14 16:19:17.797
+sc1 creation date: 2017-11-15 17:01:03.56
+sc3 name: B [shortcut] [shortcut]
+
+Sorting by size:
+A
+|    Aa.txt
+|    aa.py
+|    B
+|    |    bye.log
+|    |    B [shortcut]
+|    |    C
+|    |    |    Aa.txt [shortcut]
+|    |    |    B [shortcut] [shortcut]
+|    |    |    code.java
+
+
+Sorting by name:
+A
+|    aa.py
+|    Aa.txt
+|    B
+|    |    B [shortcut]
+|    |    bye.log
+|    |    C
+|    |    |    Aa.txt [shortcut]
+|    |    |    B [shortcut] [shortcut]
+|    |    |    code.java
+
+
+Sorting by date:
+A
+|    B
+|    |    B [shortcut]
+|    |    bye.log
+|    |    C
+|    |    |    B [shortcut] [shortcut]
+|    |    |    code.java
+|    |    |    Aa.txt [shortcut]
+|    aa.py
+|    Aa.txt
+
+
+File has been found: aa.py
+aa.py Size: 20MB Created: 2020-11-26 00:26:26.182
+print("Hello World")
+
+
+File does not exist: B/code.java
+
+
+File has been found: B/C/code.java
+code.java Size: 75MB Created: 2021-04-08 18:56:44.272
+class A {
+    public A() {
+        System.out.println("Hey there");
+    }
+}
+
+
+File does not exist: AA.txt
+
+
+add1: true
+add2: true
+add3: false
+
+Testing
+|    temp1
+|    |    temp2
+|    |    |    temp3
+|    |    |    |    temp4
+|    |    |    |    |    temp5
+|    |    |    |    |    |    temp6
+|    |    |    |    |    |    |    temp7
+|    |    |    |    |    |    |    |    temp8
+|    |    |    |    |    |    |    |    |    temp9
+|    |    |    |    |    |    |    |    |    |    temp10
+|    |    |    |    |    |    |    |    |    |    |    temp11
+|    |    |    |    |    |    |    |    |    |    |    |    temp12
+|    |    |    |    |    |    |    |    |    |    |    |    |    temp13
+|    |    |    |    |    |    |    |    |    |    |    |    |    |    temp14
+|    |    |    |    |    |    |    |    |    |    |    |    |    |    |    temp15
+|    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    Test1.cs
+|    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    test2.cs
