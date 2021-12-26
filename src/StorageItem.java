@@ -48,7 +48,7 @@ public abstract class StorageItem{
      * date created getter
      * @return date created
      */
-    public Date getDateCreated() {
+    public Date getCreationDate() {
         return dateCreated;
     }
 
@@ -154,7 +154,7 @@ public abstract class StorageItem{
     public static class DateCompare implements Comparator<StorageItem> {
         @Override
         public int compare(StorageItem o1, StorageItem o2) {
-            return o1.getDateCreated().compareTo(o2.getDateCreated());
+            return o1.getCreationDate().compareTo(o2.getCreationDate());
         }
     }
 

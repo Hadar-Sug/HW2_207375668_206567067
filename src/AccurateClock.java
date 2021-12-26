@@ -46,11 +46,9 @@ public class AccurateClock extends Clock {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true; // if they point to the same object were done
-        if (!(obj instanceof Clock)) return false; // if its not a clock at all were done
-        if (!super.equals(obj)) return false; // check equality of H and M using Clock
         if (!(obj instanceof AccurateClock)) return false; //by now we know its a similar clock, is it an AccurateClock
         AccurateClock accurateClock = (AccurateClock) obj; // it is an AccurateClock
-        return seconds == accurateClock.seconds; // compare seconds
+        return super.equals(obj) && seconds == accurateClock.seconds; // compare seconds
     }
 
     /**

@@ -75,7 +75,7 @@ public class File extends StorageItem{
      * prints the name of the file in specified format and the content itself
      */
     public void printContent(){
-        System.out.println(this.getName() + " Size: " + getSize() + "MB" + " Created: " + super.getDateCreated());
+        System.out.println(this.getName() + " Size: " + getSize() + "MB" + " Created: " + super.getCreationDate());
         System.out.println(getContents());
     }
 }
