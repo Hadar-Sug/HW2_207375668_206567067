@@ -80,7 +80,7 @@ public class Folder extends StorageItem {
                     if (index == -1) //no match found
                         exist = false;
                     else {
-                        currItem = diffrentiateTypeItem(manager.get(index)); //help function to determine File/Folder/ShortCut
+                        currItem = differentiateTypeItem(manager.get(index)); //help function to determine File/Folder/ShortCut
                         if (currItem instanceof File) {
                             return (File) currItem;
                         }
@@ -92,7 +92,7 @@ public class Folder extends StorageItem {
                     if (index == -1) //file doesn't exist
                         exist = false;
                     else { //we have found the item, need to determine if file or folder
-                        currItem = diffrentiateTypeItem(currItemFolder.contents.get(index)); //help function to determine File/Folder/ShortCut
+                        currItem = differentiateTypeItem(currItemFolder.contents.get(index)); //help function to determine File/Folder/ShortCut
                         if (currItem instanceof File)  {return (File) currItem;}
                     }
                 }
@@ -106,17 +106,18 @@ public class Folder extends StorageItem {
      * @param item
      * @return casting of the storageItem we want to use
      */
-     private StorageItem diffrentiateTypeItem(StorageItem item) {
-        if(item instanceof ShortCut) {
+     private StorageItem differentiateTypeItem(StorageItem item) {
+         StorageItem currItem = item;
+         while(currItem instanceof ShortCut) {
             ShortCut sc1 = (ShortCut) item;
-            StorageItem currItem = sc1.getItem();
+            currItem = sc1.getItem();
             if (currItem instanceof File) {
                 return (File) currItem;
             } else if (currItem instanceof Folder) {
                 return (Folder) currItem;
             }
         }
-        else if (item instanceof File)  {return (File) item;}
+        if (item instanceof File)  {return (File) item;}
         return (Folder) item;
     }
 }
