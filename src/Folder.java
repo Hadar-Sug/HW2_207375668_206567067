@@ -61,7 +61,7 @@ public class Folder extends StorageItem {
 
     /**
      * gets file based on path
-     * @param path
+     * @param path a path leading to a certain file, might exist. will be determined in the function
      * @return the file at the end of the path, and null if it doesn't exist
      */
     public File findFile(String path) { // on the TDL
@@ -103,7 +103,7 @@ public class Folder extends StorageItem {
 
     /**
      *
-     * @param item
+     * @param item StorageItem to be determined
      * @return casting of the storageItem we want to use
      */
      private StorageItem differentiateTypeItem(StorageItem item) {
