@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Folder extends StorageItem {
-    private int size;
+    //private int size;
     private ArrayList<StorageItem> contents;
 
     /**
@@ -11,7 +11,7 @@ public class Folder extends StorageItem {
     public Folder(String name) {
         super(name);
         this.contents = new ArrayList<>();
-        size = 0;
+        //size = 0;
     }
 
     /**
@@ -39,12 +39,9 @@ public class Folder extends StorageItem {
      * @return size
      */
     public int getSize(){
-        int size=1; //The folder itself
+        int size = 0; //The folder itself
         for (StorageItem i:contents) { //Everything it contains
-            if(i instanceof Folder)
-                return i.getSize();
-            else
-                size+=i.getSize();
+            size += i.getSize();
         }
         return size;
     }
@@ -60,7 +57,7 @@ public class Folder extends StorageItem {
                 return false;
         }
         contents.add(item);
-        size += item.getSize();
+        //size += item.getSize();
         return true;
     }
 

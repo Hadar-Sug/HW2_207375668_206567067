@@ -72,7 +72,8 @@ public abstract class StorageItem{
         long end = Timestamp.valueOf("2022-12-31 23:59:59").getTime(); // end
         long diff = end - offset; // difference
         Timestamp rand = new Timestamp(offset + Main.rnd.nextLong()%diff); // second part of equation ensures were in bounds
-        return new Date(rand.getTime());
+        return rand;
+        //return new Date(rand.getTime());
     }
 
     /**
