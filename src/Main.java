@@ -1,12 +1,13 @@
+import java.sql.Timestamp;
 import java.util.*;
 
 public class Main {
     public static Random rnd;
 
     public static void main(String[] args) {
-        testPartA();
-        System.out.println();
-        testPartB();
+       testPartA();
+       System.out.println();
+       testPartB();
     }
 
     private static void testPartA() {

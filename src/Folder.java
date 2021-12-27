@@ -11,7 +11,6 @@ public class Folder extends StorageItem {
     public Folder(String name) {
         super(name);
         this.contents = new ArrayList<>();
-        //size = 0;
     }
 
     /**
@@ -57,14 +56,13 @@ public class Folder extends StorageItem {
                 return false;
         }
         contents.add(item);
-        //size += item.getSize();
         return true;
     }
 
     /**
      * gets file based on path
      * @param path
-     * @return
+     * @return the file at the end of the path, and null if it doesn't exist
      */
     public File findFile(String path) { // on the TDL
         String[] allFiles = path.split("/");
@@ -77,25 +75,14 @@ public class Folder extends StorageItem {
             if(allFiles[i] == null)
                 return null;
             else { //We want to check if the file exists
-
                 if (i == 0) { // manager is not a folder, always need to check this first
                     index = super.isInManager(allFiles[0]);
                     if (index == -1) //no match found
                         exist = false;
                     else {
-                        ArrayList<StorageItem> managerItem = manager;
-                        if (managerItem.get(i) instanceof File) {
-                            return (File) managerItem.get(i);
-                        }
-                        else if (managerItem.get(i) instanceof Folder) {
-                            currItem = (Folder) managerItem.get(i);
-                        }
-                        else {
-                            // it's a shortcut, so we'll determine the item
-                            ShortCut sc1 = (ShortCut) managerItem.get(i);
-                            currItem = sc1.getItem();
-                            if (currItem instanceof File)
-                                return (File) currItem;
+                        currItem = diffrentiateTypeItem(manager.get(index)); //help function to determine File/Folder/ShortCut
+                        if (currItem instanceof File) {
+                            return (File) currItem;
                         }
                     }
                 }
@@ -105,23 +92,31 @@ public class Folder extends StorageItem {
                     if (index == -1) //file doesn't exist
                         exist = false;
                     else { //we have found the item, need to determine if file or folder
-                        ArrayList<StorageItem> contentItem = currItemFolder.contents;
-                        if (contentItem.get(i) instanceof File)  {return (File) contentItem.get(i);}
-                        else if (contentItem.get(i) instanceof Folder) {currItem = (Folder) contentItem.get(i);}
-
-                        else { //it's a shortcut
-                            ShortCut sc1 = (ShortCut) contentItem.get(i);
-                            currItem = sc1.getItem();
-                            if (currItem instanceof File) {
-                                return (File) currItem;
-                            } else if (currItem instanceof Folder) {
-                                currItem = (Folder) currItem;
-                            }
-                        }
+                        currItem = diffrentiateTypeItem(currItemFolder.contents.get(index)); //help function to determine File/Folder/ShortCut
+                        if (currItem instanceof File)  {return (File) currItem;}
                     }
                 }
             }
         }
-        return null; //forever
+        return null; //if still hasn't been found after going through all storage items the file doesn't exist
+    }
+
+    /**
+     *
+     * @param item
+     * @return casting of the storageItem we want to use
+     */
+     private StorageItem diffrentiateTypeItem(StorageItem item) {
+        if(item instanceof ShortCut) {
+            ShortCut sc1 = (ShortCut) item;
+            StorageItem currItem = sc1.getItem();
+            if (currItem instanceof File) {
+                return (File) currItem;
+            } else if (currItem instanceof Folder) {
+                return (Folder) currItem;
+            }
+        }
+        else if (item instanceof File)  {return (File) item;}
+        return (Folder) item;
     }
 }

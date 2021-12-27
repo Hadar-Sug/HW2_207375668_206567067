@@ -68,12 +68,13 @@ public abstract class StorageItem{
      * @return random date
      */
     private Date generateDate(){
-        long offset = Timestamp.valueOf("2017-01-01 00:00:00").getTime(); //start (US style date?)
+        long offset = Timestamp.valueOf("2017-01-01 00:00:00").getTime(); //start
         long end = Timestamp.valueOf("2022-12-31 23:59:59").getTime(); // end
         long diff = end - offset; // difference
-        Timestamp rand = new Timestamp(offset + Main.rnd.nextLong()%diff); // second part of equation ensures were in bounds
+        long y =  Math.abs(Main.rnd.nextLong());
+        long range = offset + y%diff;
+        Timestamp rand = new Timestamp(range); // second part of equation ensures were in bounds
         return rand;
-        //return new Date(rand.getTime());
     }
 
     /**
