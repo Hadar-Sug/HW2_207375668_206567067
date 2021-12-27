@@ -109,7 +109,7 @@ public class Folder extends StorageItem {
      private StorageItem differentiateTypeItem(StorageItem item) {
          StorageItem currItem = item;
          while(currItem instanceof ShortCut) {
-            ShortCut sc1 = (ShortCut) item;
+            ShortCut sc1 = (ShortCut) currItem;
             currItem = sc1.getItem();
             if (currItem instanceof File) {
                 return (File) currItem;
