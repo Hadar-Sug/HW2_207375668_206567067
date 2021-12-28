@@ -20,6 +20,7 @@ public abstract class StorageItem{
         this.name = name;
         this.dateCreated = generateDate();
         manager.add(this);
+        initializer();
     }
 
     /**
@@ -77,20 +78,58 @@ public abstract class StorageItem{
     }
 
     /**
-     * prints storage tree, starts at current Item
-     * @param sortBy field were sorting by
+     *
+     * @param item StorageItem to be determined
+     * @return casting of the storageItem we want to use
      */
-    public void printTree(SortingField sortBy){
+    public StorageItem differentiateTypeItem(StorageItem item) {
+        StorageItem currItem = item;
+        while(currItem instanceof ShortCut) {
+            ShortCut sc1 = (ShortCut) currItem;
+            currItem = sc1.getItem();
+            if (currItem instanceof File) {
+                return (File) currItem;
+            } else if (currItem instanceof Folder) {
+                return (Folder) currItem;
+            }
+        }
+        if (item instanceof File)  {return (File) item;}
+        return (Folder) item;
+    }
+
+
+    /**
+     * prints storage tree, starts at current Item (not included)
+     * @param sortBy field were sorting by
+     * @param intro the string before each file/folder in order to print
+     */
+    private void printTree(SortingField sortBy, String intro){
         ArrayList<StorageItem> sortedTree = getSortedTree(sortBy); // lets get a sorted list
         for (StorageItem item:sortedTree) { //iterate through it
             if (item instanceof Folder){ // check if its a folder
-                System.out.println(item.getName()); // if so we print the name of it
-                item.printTree(sortBy);// and then we go on to print the contents of the folder
+                System.out.println(intro+item.getName()); // if so we print the name of it
+                item.printTree(sortBy,intro+"|    ");// and then we go on to print the contents of the folder
                 // probably causes problems, gotta think it through
             }else {
-                System.out.println("|    " + item.getName()); // it's not a folder so just print the item
+                System.out.println(intro+ item.getName()); // it's not a folder so just print the item
             }
         }
+
+    }
+
+    /**
+     * prints the tree of the storage item and deeper
+     * @param sortBy the field we're sorting by
+     */
+    public void printTree(SortingField sortBy){
+        if(differentiateTypeItem(this) instanceof Folder){
+            System.out.println(this.getName());//We want to print the folder we're in atm
+            printTree(sortBy,"|    "); //Helps us utilize and keep track of the "|" and the folders we're in
+        }
+        else{
+            System.out.println(this.getName());//We want to print the file, and that's it!
+        }
+
     }
 
     /**

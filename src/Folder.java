@@ -101,23 +101,4 @@ public class Folder extends StorageItem {
         return null; //if still hasn't been found after going through all storage items the file doesn't exist
     }
 
-    /**
-     *
-     * @param item StorageItem to be determined
-     * @return casting of the storageItem we want to use
-     */
-     private StorageItem differentiateTypeItem(StorageItem item) {
-         StorageItem currItem = item;
-         while(currItem instanceof ShortCut) {
-            ShortCut sc1 = (ShortCut) currItem;
-            currItem = sc1.getItem();
-            if (currItem instanceof File) {
-                return (File) currItem;
-            } else if (currItem instanceof Folder) {
-                return (Folder) currItem;
-            }
-        }
-        if (item instanceof File)  {return (File) item;}
-        return (Folder) item;
     }
-}

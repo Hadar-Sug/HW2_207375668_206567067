@@ -109,7 +109,7 @@ public class Main {
         System.out.println("sc1 creation date: " + sc1.getCreationDate());
         System.out.println("sc3 name: " + sc3.getName());
         System.out.println();
-        /*
+
         System.out.println("Sorting by size:");
         fo2.printTree(SortingField.SIZE);
         System.out.println("\n");
@@ -121,7 +121,7 @@ public class Main {
         System.out.println("Sorting by date:");
         fo2.printTree(SortingField.DATE);
         System.out.println("\n");
-        */
+
         String[] paths = {"aa.py", "B/code.java", "B/C/code.java", "AA.txt"};
 
         for (String path : paths) {
