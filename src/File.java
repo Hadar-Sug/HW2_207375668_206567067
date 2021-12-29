@@ -1,7 +1,6 @@
 public class File extends StorageItem{
     private String fileType;
     private String contents;
-    private int size; //prob redundant
 
     /**
      * constructor
@@ -11,7 +10,7 @@ public class File extends StorageItem{
     public File(String name, String type) {
         super(name);
         this.fileType = type;
-        this.contents = new String("");
+        this.contents = "";
     }
 
     /**

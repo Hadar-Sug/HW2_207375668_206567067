@@ -9,8 +9,8 @@ public abstract class StorageItem{
     protected static ArrayList<StorageItem> manager = new ArrayList<StorageItem>(); // list of all Storage Items
 
     @SuppressWarnings("uncecked")
-    private static Comparator<StorageItem>[] sorting = new Comparator[3]; //lets hold our comparators in an array
-    //initialization below
+    private static Comparator[] sorting = new Comparator[3]; //lets hold our comparators in an array
+    //initialization below (line 168)
 
     /**
      * constructor
@@ -76,15 +76,15 @@ public abstract class StorageItem{
         long range = offset + y%diff; // second part of equation ensures were in bounds
         return new Timestamp(range);
     }
-
     /**
      *
-     * @param item StorageItem to be determined
+     * @param item StorageItem to be determined (File/Folder/Shortcut)
      * @return casting of the storageItem we want to use
      */
     public StorageItem differentiateTypeItem(StorageItem item) {
         StorageItem currItem = item;
         while(currItem instanceof ShortCut) {
+            //If it's a shortcut, we want to go deep and determine if the shortcut is a file or folder
             ShortCut sc1 = (ShortCut) currItem;
             currItem = sc1.getItem();
             if (currItem instanceof File) {
@@ -93,28 +93,8 @@ public abstract class StorageItem{
                 return (Folder) currItem;
             }
         }
-        if (item instanceof File)  {return (File) item;}
-        return (Folder) item;
-    }
-
-
-    /**
-     * prints storage tree, starts at current Item (not included)
-     * @param sortBy field were sorting by
-     * @param intro the string before each file/folder in order to print
-     */
-    private void printTree(SortingField sortBy, String intro){
-        ArrayList<StorageItem> sortedTree = getSortedTree(sortBy); // lets get a sorted list
-        for (StorageItem item:sortedTree) { //iterate through it
-            if (item instanceof Folder){ // check if its a folder
-                System.out.println(intro+item.getName()); // if so we print the name of it
-                item.printTree(sortBy,intro+"|    ");// and then we go on to print the contents of the folder
-                // probably causes problems, gotta think it through
-            }else {
-                System.out.println(intro+ item.getName()); // it's not a folder so just print the item
-            }
-        }
-
+        if (currItem instanceof File)  {return (File) currItem;}
+        return (Folder) currItem;
     }
 
     /**
@@ -128,6 +108,25 @@ public abstract class StorageItem{
         }
         else{
             System.out.println(this.getName());//We want to print the file, and that's it!
+        }
+
+    }
+
+    /**
+     * prints storage tree, starts at current Item (not included). Helps us control our output onto the screen
+     * @param sortBy field were sorting by
+     * @param intro the string before each file/folder in order to print
+     */
+    private void printTree(SortingField sortBy, String intro){
+        ArrayList<StorageItem> sortedTree = getSortedTree(sortBy); // lets get a sorted list
+        for (StorageItem item:sortedTree) { //iterate through it
+            if (item instanceof Folder){
+                System.out.println(intro+item.getName()); // if we have found a folder, we print the name of it
+                item.printTree(sortBy,intro+"|    ");// and then we go on to print the contents of the folder
+
+            }else {
+                System.out.println(intro+ item.getName()); // it's not a folder so just print the file
+            }
         }
 
     }

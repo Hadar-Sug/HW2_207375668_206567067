@@ -74,8 +74,6 @@ public class Clock {
         if (!(obj instanceof Clock)) return false; // if the object isn't a clock, we're done
         Clock clock = (Clock) obj; // it's a clock! hooray!
         return this.hashCode()==clock.hashCode();
-        /*if(clock.hashCode()*this.hashCode()<0) return false; //if this multiplication is lower than 0 -> diff objects
-        return hours == clock.hours && minutes == clock.minutes; // let's compare*/
     }
 
     /**
@@ -84,7 +82,7 @@ public class Clock {
      */
     @Override
     public int hashCode() {
-        return ((100*hours) + (minutes+1)); //higher than zero
+        return ((100*hours) + (minutes+1));
     }
 
     /**

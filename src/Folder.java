@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 
 public class Folder extends StorageItem {
-    //private int size;
     private ArrayList<StorageItem> contents;
 
     /**
@@ -64,19 +63,19 @@ public class Folder extends StorageItem {
      * @param path a path leading to a certain file, might exist. will be determined in the function
      * @return the file at the end of the path, and null if it doesn't exist
      */
-    public File findFile(String path) { // on the TDL
-        String[] allFiles = path.split("/");
-        boolean exist = true;
+    public File findFile(String path) {
+        String[] allItems = path.split("/"); // First of all, let's determine all our storageitems
+        boolean exist = true; // a flag to determine if an item actually exists and if we find out later on it doesn't we'll return null
         int index;
-        StorageItem currItem = null;
-        for (int i = 0; i < allFiles.length; i++) {
+        StorageItem currItem = null; // a pointer to the storageitem we are looking at, helps us find if any file exists
+        for (int i = 0; i < allItems.length; i++) {
             if (!exist)
                 return null;
-            if(allFiles[i] == null)
+            if(allItems[i] == null)
                 return null;
-            else { //We want to check if the file exists
-                if (i == 0) { // manager is not a folder, always need to check this first
-                    index = super.isInManager(allFiles[0]);
+            else { //We want to check if the file exists. However, manager is not a folder, so we'll divide it into 2 possible outcomes
+                if (i == 0) {
+                    index = super.isInManager(allItems[0]);
                     if (index == -1) //no match found
                         exist = false;
                     else {
@@ -86,9 +85,9 @@ public class Folder extends StorageItem {
                         }
                     }
                 }
-                else { //we're in folders, no need to look another scenario
+                else { //we're in folders, no need to look at any other scenario
                     Folder currItemFolder = (Folder) currItem;
-                    index = currItemFolder.searchContent(allFiles[i]); //searching if the item exists in the currentfolder
+                    index = currItemFolder.searchContent(allItems[i]); //searching if the item exists in the currentfolder
                     if (index == -1) //file doesn't exist
                         exist = false;
                     else { //we have found the item, need to determine if file or folder
@@ -98,7 +97,7 @@ public class Folder extends StorageItem {
                 }
             }
         }
-        return null; //if still hasn't been found after going through all storage items the file doesn't exist
+        return null; //if still hasn't been found after going through all storage items then the file doesn't exist
     }
 
     }
